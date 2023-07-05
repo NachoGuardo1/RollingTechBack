@@ -1,12 +1,16 @@
 const {Schema, model} = require('mongoose');
 
-const UsuariosSchema = Schema({
+const UsuarioSchema = Schema({
     nombre:{type: String, required:[true,"El nombre es obligatorio"] },
-    correo:{type: String, required:[true,"El correo es obligatorio"] },
-    password:{type: String, required:[true,"La contraseña es obligatorio"] },
-    img:{type: String},
-    rol:{type: String, required: true, enum["USER_ROLE","ADMIN_ROLE"]},
-    estado:{type: Boolean, default:true}
+    correo:{type: String, required:[true,"El correo es obligatorio"],unique: true },
+    contrasena:{type: String, required:[true,"La contraseña es obligatorio"] },
+    estado:{type: Boolean, default: true}
 })
+//quitar datos extras enla respuesta json
+UsuarioSchema.methods.toJSON = function(){
+    //desestructuramos los datos
+    const{__v,contrasena,...usuario}=this.toObject();
+    return usuario;
+}
 
 module.exports=model("Usuario", UsuarioSchema);
