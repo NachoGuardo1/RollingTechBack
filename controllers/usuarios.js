@@ -1,13 +1,23 @@
 const {response,request} = require('express');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
+const Rol = require('../models/rol');
 
 //el Get es para obtejer los datos de la BD
-const usuariosGet = (req=request,res=response) =>{
-    const datos = req.query;
+const usuariosGet = async (req=request,res=response) =>{
+    const {desde=0,limite=5} = req.query;
+    const query = {estado:true}
+
+    const [total,usuarios] = await Promise.all([
+        Usuario.countDocuments(query),
+        Usuario.find(query).skip(desde).limit(limite)
+
+    ])
+
     res.json({
-        mensaje:'Get usuarios',
-        datos
+        mensaje:"Get usuarios",
+        total,
+        usuarios
     })
 }
 
@@ -15,15 +25,8 @@ const usuariosGet = (req=request,res=response) =>{
 const usuariosPost = async (req=request,res=response) =>{
     //recibir el cuerpo de la peticion
     const datos = req.body;
-    const {nombre,correo,contrasena,estado}=datos;
-    const usuario = new Usuario({nombre,correo,contrasena,estado});
-
-    
-    //verificar que el correo no exist en la BD
-    const existeCorreo= await Usuario.findOne({correo})
-    if (existeCorreo){
-        return res.status(400).json({msg:"El correo ya se encuentra registrado en la Base de Datos."})
-    }
+    const {nombre,correo,contrasena,estado,rol}=datos;
+    const usuario = new Usuario({nombre,correo,contrasena,estado,rol});
 
     //encriptar la contraseña
     const salt=bcrypt.genSaltSync(10);
@@ -35,7 +38,7 @@ const usuariosPost = async (req=request,res=response) =>{
 
     res.json({
         usuario,
-        messaje: 'Usuario creado exitosamente'
+        messaje: "Usuario creado exitosamente"
     })
 
     /*const {nombre,correo} = req.body;
@@ -48,22 +51,55 @@ const usuariosPost = async (req=request,res=response) =>{
 
 
 //el Put nos permite leer o actualizar los datos de laBD
-const usuarioPut = (req=request,res=response) =>{
+const usuarioPut = async (req=request,res=response) =>{
+    //tenemos q obtener el id para poder actualizar- lo obtendremos de req.param
+    const {id}= req.params;
+
+    //desestructuramos los datos q nos mandan del front
+    const {contrasena,correo,...resto}=req.body;
+    //si actualizo el passwoer, debo cifrarlo o encriptarlo
+    if (contrasena){
+        const salt =bcrypt.genSaltSync(10);
+        resto.contrasena=bcrypt.hashSync(contrasena,salt);
+    }
+    resto.correo=correo;
+    //buscar el usuario en la BD y actualizar
+    const usuario = await Usuario.findByIdAndUpdate(id,resto,{new: true})
+
     res.json({
-        mensaje: 'Put usuario'
+        mensaje: "Usuario actualizado",
+        usuario
     })
 }
 
-const usuarioDelete = (req=request,res=response) =>{
+const usuarioDelete = async (req=request,res=response) =>{
+    const {id}=req.params;
+    const usuarioAutenticado =req.usuario;
+
+
+    //le cambiamos el estado a false
+    const usuario= await Usuario.findById(id);
+
+    if (!usuario.estado){
+        return res.json({
+            msg: "El usuario ya se encuentra en estado Inactivo.",
+        })
+    }
+
+    const usuarioInactivado=await Usuario.findByIdAndUpdate(id,{estado:false},{new:true});
+    
     res.json({
-        mensaje: 'Delete usuario'
+        mensaje: "Usuario modificado. Se cambio a estado INACTIVO",
+        usuarioInactivado,
+        usuarioAutenticado
+
     })
     
-}
+};
 
 module.exports = {
     usuariosGet,
     usuariosPost,
     usuarioPut,
     usuarioDelete
-}
+};
