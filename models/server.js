@@ -8,11 +8,12 @@ class Server{
         this.port=process.env.PORT;
         this.authPath="/api/auth";
         this.usuariosPath ='/api/usuarios';
+        this.buscarPath='/api/buscar';
 
         //conecatar con BD
         this.conectarDB()
         //middlewares
-        this.middleares();
+        this.middlewares();
 
         //funcion para las rutas
         this.routes();
@@ -23,19 +24,20 @@ class Server{
         await dbConnection()
     }
 
-    middleares(){
+    middlewares(){
         //cors
         this.app.use(cors());
         //leer lo q el usuario envia por el cuerpo de la peticion
         this.app.use(express.json());
         //definir la carpeta publica
-        this.app.use(express.static('public'))
+        this.app.use(express.static('public'));
 
     }
 
     routes(){
         this.app.use(this.authPath,require('../routes/auth'));
-        this.app.use(this.usuariosPath,require('../routes/usuarios'))
+        this.app.use(this.usuariosPath,require('../routes/usuarios'));
+        this.app.use(this.buscarPath,require('../routes/buscar'));
 
     }
     

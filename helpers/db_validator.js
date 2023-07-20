@@ -2,6 +2,8 @@
 const Rol = require ('../models/rol');
 const Usuario =require('../models/usuario');
 
+
+
 //Validar Rol
 const esRolValido = async (rol) => {
     const existeRol=await Rol.findOne({rol})
@@ -9,7 +11,6 @@ const esRolValido = async (rol) => {
     if (!existeRol){
         throw new Error (`El rol ${rol} no existe en la Base de Datos.`);
     }
-
 }
 
 
@@ -23,6 +24,7 @@ const emailExiste = async (correo)=>{
     }
 
 }
+
 
 //funcion para ver si existe el id del usuario
 const usuarioExiste = async(id)=>{
@@ -38,3 +40,4 @@ module.exports ={
     emailExiste,
     usuarioExiste
 }
+

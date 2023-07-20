@@ -3,10 +3,15 @@ const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
 const Rol = require('../models/rol');
 
+const {validationResult} = require('express-validator');
+
+
 //el Get es para obtejer los datos de la BD
 const usuariosGet = async (req=request,res=response) =>{
     const {desde=0,limite=5} = req.query;
     const query = {estado:true}
+
+    console.log("HERE");
 
     const [total,usuarios] = await Promise.all([
         Usuario.countDocuments(query),
@@ -25,9 +30,10 @@ const usuariosGet = async (req=request,res=response) =>{
 const usuariosPost = async (req=request,res=response) =>{
     //recibir el cuerpo de la peticion
     const datos = req.body;
+    console.log(datos);
     const {nombre,correo,contrasena,estado,rol}=datos;
     const usuario = new Usuario({nombre,correo,contrasena,estado,rol});
-
+    console.log(usuario);
     //encriptar la contraseña
     const salt=bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(contrasena,salt);
@@ -41,12 +47,6 @@ const usuariosPost = async (req=request,res=response) =>{
         messaje: "Usuario creado exitosamente"
     })
 
-    /*const {nombre,correo} = req.body;
-    await res.json({
-        mensaje: 'Post Usuarios',
-        nombre,
-        correo
-    })*/
 }
 
 
@@ -72,12 +72,11 @@ const usuarioPut = async (req=request,res=response) =>{
     })
 }
 
+
 const usuarioDelete = async (req=request,res=response) =>{
     const {id}=req.params;
     const usuarioAutenticado =req.usuario;
-
-
-    //le cambiamos el estado a false
+   //le cambiamos el estado a false
     const usuario= await Usuario.findById(id);
 
     if (!usuario.estado){
@@ -97,9 +96,13 @@ const usuarioDelete = async (req=request,res=response) =>{
     
 };
 
+
 module.exports = {
     usuariosGet,
     usuariosPost,
     usuarioPut,
     usuarioDelete
 };
+
+
+

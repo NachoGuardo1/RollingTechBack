@@ -10,6 +10,7 @@ const {esRolValido,emailExiste,usuarioExiste} = require('../helpers/db_validator
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { esAdminRole } = require('../middlewares/validar-roles');
 
+
 router.get('/',usuariosGet);
 
 router.post('/', 
