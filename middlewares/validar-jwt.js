@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuario');
 
 const validarJWT = async (req=request, res=response, next) => {
+    console.log('en validar jwt');
     const token = req.header('x-token');
 
     //preguntar si enviaron el token

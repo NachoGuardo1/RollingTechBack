@@ -8,6 +8,8 @@ class Server{
         this.port=process.env.PORT;
         this.authPath="/api/auth";
         this.usuariosPath ='/api/usuarios';
+        this.productosPath ='/api/productos';
+        this.categoriasPath='/api/categoria';
         this.buscarPath='/api/buscar';
 
         //conecatar con BD
@@ -37,6 +39,8 @@ class Server{
     routes(){
         this.app.use(this.authPath,require('../routes/auth'));
         this.app.use(this.usuariosPath,require('../routes/usuarios'));
+        this.app.use(this.categoriasPath,require('../routes/categorias'));
+        this.app.use(this.productosPath,require('../routes/productos'));
         this.app.use(this.buscarPath,require('../routes/buscar'));
 
     }
