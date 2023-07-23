@@ -1,8 +1,7 @@
 const {request,response}=require('express');
 
-
-
 const esAdminRole =(req=request,res=response,next)=>{
+    console.log('en esAdminRole')
     if(!req.usuario){
         //no validamos el token antes
         return res.status(500).json({

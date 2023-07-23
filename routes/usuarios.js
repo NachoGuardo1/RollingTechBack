@@ -40,7 +40,7 @@ usuarioPut)
 router.delete('/:id',
 [
     validarJWT,
-    esAdminRole,
+    //esAdminRole,
     check("id","El Id no es válido").isMongoId(),
     check("id").custom(usuarioExiste),
     validarCampos
