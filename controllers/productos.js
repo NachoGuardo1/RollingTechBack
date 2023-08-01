@@ -8,25 +8,36 @@ const { validationResult } = require("express-validator");
 const productosGet = async (req = request, res = response) => {
   const { desde = 0, limite = 5 } = req.query;
   const query = { estado: true };
+  console.log("en prodcutosGet");
 
   const [total, productos] = await Promise.all([
     Producto.countDocuments(query),
     Producto.find(query).skip(desde).limit(limite),
   ]);
 
+  console.log("en prodcutosGet");
+
   res.json({
-    mensaje: "Get productos",
+    mensaje: "Get productos ",
     total,
     productos,
   });
 };
 
+res.json({
+  mensaje: "Get productos",
+  total,
+  productos,
+});
+
 //el post es para guardar los datos en la BD
 const productosPost = async (req = request, res = response) => {
   //recibir el cuerpo de la peticion
   console.log("HERE in POST");
-  const nombre = req.body.nombre.toUpperCase();
-  const descrip = req.body.descrip.toUpperCase();
+  //const nombre = req.body.nombre.toUpperCase();
+  //const descrip = req.body.descrip.toUpperCase();
+  const nombre = req.body.nombre;
+  const descrip = req.body.descrip;
   const precio = req.body.precio;
   const categoria = req.body.categoria;
   const img = req.body.img;

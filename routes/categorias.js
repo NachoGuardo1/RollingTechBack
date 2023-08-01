@@ -8,10 +8,9 @@ const { obtenerCategorias, obtenerCategoria, crearCategoria, actualizarCategoria
 
 const router = Router();
 
-router.get('/', [validarJWT], obtenerCategorias);
+router.get('/',  obtenerCategorias);
 
 router.get('/:id', [
-    validarJWT,
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom(categoriaExiste),
     validarCampos

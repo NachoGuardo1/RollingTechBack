@@ -13,8 +13,22 @@ const {
   esPrecioValido,
 } = require("../helpers/db_validator");
 
+const { Router } = require("express");
+const { check } = require("express-validator");
+const {
+  productosGet,
+  productosPost,
+  productoPut,
+  productoDelete,
+} = require("../controllers/productos");
+const {
+  productoExiste,
+  nombreProdExiste,
+  esCategoriaValida,
+  esPrecioValido,
+} = require("../helpers/db_validator");
+
 const { validarCampos } = require("../middlewares/validar_campos");
-const { ValidarPrecio } = require("../middlewares/validar-productos");
 const { validarJWT } = require("../middlewares/validar-jwt");
 
 const router = Router();
