@@ -6,7 +6,6 @@ const {productosGet, productosPost,productoPut,productoDelete} = require('../con
 const {productoExiste, nombreProdExiste, esCategoriaValida, esPrecioValido } = require('../helpers/db_validator');
 
 const { validarCampos } = require('../middlewares/validar_campos');
-const { ValidarPrecio} = require('../middlewares/validar-productos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 
