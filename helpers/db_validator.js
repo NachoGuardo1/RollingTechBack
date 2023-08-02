@@ -4,6 +4,8 @@ const Usuario =require('../models/usuario');
 const Producto=require('../models/productos');
 const Categoria=require('../models/categoria');
 
+const contraseñaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,10}$/;
+
 //Validar Rol
 const esRolValido = async (rol) => {
     const existeRol=await Rol.findOne({rol})
@@ -91,6 +93,16 @@ const esPrecioValido = async (precio) => {
     console.log('estoy en esPrecioValido');
 }
 
+//Validar Precio
+const validarFormatoContrasena = async (contrasena) => {
+    console.log(contrasena);
+
+    if (!contraseñaRegex.test(contrasena)) {
+        throw new Error (`La contraseña no cumple con los requisitos de seguridad`);
+      }
+
+    console.log('estoy en validarFormatocontraseña');
+}
 
 
 module.exports ={
@@ -101,6 +113,7 @@ module.exports ={
     productoExiste,
     categoriaExiste,
     esCategoriaValida,
-    esPrecioValido
+    esPrecioValido,
+    validarFormatoContrasena
 }
 
