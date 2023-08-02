@@ -6,18 +6,21 @@ const router = Router();
 const {usuariosGet, usuariosPost,usuarioPut,usuarioDelete} = require('../controllers/usuarios');
 const { validarCampos } = require('../middlewares/validar_campos');
 
-const {esRolValido,emailExiste,usuarioExiste} = require('../helpers/db_validator');
+const {esRolValido,emailExiste,usuarioExiste,validarFormatoContrasena} = require('../helpers/db_validator');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { esAdminRole } = require('../middlewares/validar-roles');
+
 
 router.get('/',usuariosGet);
 
 router.post('/', 
 [
     check('nombre',"El nombre es obligatorio.").notEmpty(),
-    check('contrasena',"La contraseña debe tener un mínimo de 6 caracteres.").isLength({min:6}),
+    check('contrasena',"La contraseña debe tener un mínimo de 8 caracteres.").isLength({min:8}),
+    check('contrasena').custom(validarFormatoContrasena),
     check('correo').custom(emailExiste),
     check ('rol').custom(esRolValido),
+
     validarCampos
 
 ],
@@ -39,7 +42,7 @@ usuarioPut)
 router.delete('/:id',
 [
     validarJWT,
-    esAdminRole,
+    //esAdminRole,
     check("id","El Id no es válido").isMongoId(),
     check("id").custom(usuarioExiste),
     validarCampos
