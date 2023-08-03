@@ -6,8 +6,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"node server.js",
-    "build": "react-scripts build" ,
+    "start":"nodemon index.js",
+    "build": "react-scripts build",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
