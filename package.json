@@ -1,27 +1,20 @@
 {
-  "name": "rollingtechback",
+  "name": "RollingTechBack",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NachoGuardo1/RollingTechBack.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "express-validator": "^7.0.1",
-    "jsonwebtoken": "^9.0.1",
-    "mongoose": "^7.4.1"
+  "bugs": {
+    "url": "https://github.com/NachoGuardo1/RollingTechBack/issues"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
-  }
+  "homepage": "https://github.com/NachoGuardo1/RollingTechBack#readme"
 }
