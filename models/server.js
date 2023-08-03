@@ -1,11 +1,6 @@
 const express = require('express')
-const cors = require('cors');
+//const cors = require('cors');
 const {dbConnection} = require('../database/config')
-
-
-const corsOptions = {
-  origin: "https://rolling-tech.netlify.app",
-};
 
 
 class Server{
@@ -34,10 +29,9 @@ class Server{
 
     middlewares(){
         //cors
-        this.app.use(cors());
+        //this.app.use(cors());
         //leer lo q el usuario envia por el cuerpo de la peticion
         this.app.use(express.json());
-        this.app.use(cors(corsOptions));
         //definir la carpeta publica
         this.app.use(express.static('public'));
 
