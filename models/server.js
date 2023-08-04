@@ -1,3 +1,4 @@
+
 const express = require('express')
 const {dbConnection} = require('../database/config')
 
@@ -51,6 +52,7 @@ class Server{
 
         })
     }
+
 }
 
 module.exports = Server;
