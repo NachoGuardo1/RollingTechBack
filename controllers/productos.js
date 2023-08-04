@@ -24,12 +24,6 @@ const productosGet = async (req = request, res = response) => {
   });
 };
 
-res.json({
-  mensaje: "Get productos",
-  total,
-  productos,
-});
-
 //el post es para guardar los datos en la BD
 const productosPost = async (req = request, res = response) => {
   //recibir el cuerpo de la peticion
