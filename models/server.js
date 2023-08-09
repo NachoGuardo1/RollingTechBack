@@ -2,12 +2,6 @@ const express = require('express')
 const cors = require('cors');
 const {dbConnection} = require('../database/config')
 
-
-const corsOptions = {
-  origin: "https://rolling-tech.netlify.app",
-};
-
-
 class Server{
     constructor(){
         this.app = express();
