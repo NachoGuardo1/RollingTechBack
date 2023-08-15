@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,28 +14,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-
   "dependencies": {
     "bcryptjs": "^2.4.3",
-
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.1",
-
     "mongoose": "^7.4.1"
-
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NachoGuardo1/RollingTechBack.git"
-  },
   "bugs": {
     "url": "https://github.com/NachoGuardo1/RollingTechBack/issues"
   },
-
   "homepage": "https://github.com/NachoGuardo1/RollingTechBack#readme"
 }
