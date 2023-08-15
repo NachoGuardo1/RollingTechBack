@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+
     "dev": "nodemon ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,6 +15,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -29,5 +31,6 @@
   "bugs": {
     "url": "https://github.com/NachoGuardo1/RollingTechBack/issues"
   },
+
   "homepage": "https://github.com/NachoGuardo1/RollingTechBack#readme"
 }
