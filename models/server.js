@@ -35,20 +35,6 @@ class Server{
         //definir la carpeta publica
         this.app.use(express.static('public'));
 
-        ///agregado por aei para probar lo de cors
-        this.app.use(function(req,res,next){
-            const dominiosPermitidos =['https://rolling-tech-v5l8-git-main-nachoguardo1.vercel.app/','http://localhost:5173/']
-            const origin = req.headers.origin;
-            if (dominiosPermitidos.indexOf(origin)> -1){
-                res.setHeader('Access-Control-Allow-Origin', origin);
-            }
-            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-            res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
-            res.setHeader('Access-Control-Allow-Credentials', true);
-
-            next;
-        })
-
     }
 
     routes(){
