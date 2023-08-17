@@ -29,7 +29,7 @@ class Server{
 
     middlewares(){
         //cors
-        this.app.use(cors());
+        this.app.use(cors({origin: '*' }));
         //leer lo q el usuario envia por el cuerpo de la peticion
         this.app.use(express.json());
         //definir la carpeta publica
