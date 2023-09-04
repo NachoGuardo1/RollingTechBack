@@ -8,14 +8,11 @@ const { validationResult } = require("express-validator");
 const productosGet = async (req = request, res = response) => {
   const { desde = 0, limite = 5 } = req.query;
   const query = { estado: true };
-  console.log("en prodcutosGet");
 
   const [total, productos] = await Promise.all([
     Producto.countDocuments(query),
     Producto.find(query).skip(desde).limit(limite),
   ]);
-
-  console.log("en prodcutosGet");
 
   res.json({
     mensaje: "Get productos ",
@@ -27,7 +24,6 @@ const productosGet = async (req = request, res = response) => {
 //el post es para guardar los datos en la BD
 const productosPost = async (req = request, res = response) => {
   //recibir el cuerpo de la peticion
-  console.log("HERE in POST");
   //const nombre = req.body.nombre.toUpperCase();
   //const descrip = req.body.descrip.toUpperCase();
   const nombre = req.body.nombre;
@@ -61,8 +57,6 @@ const productosPost = async (req = request, res = response) => {
 const productoPut = async (req = request, res = response) => {
   //tenemos q obtener el id para poder actualizar- lo obtendremos de req.param
   const { id } = req.params;
-  console.log("estoy dentro del put");
-  console.log(id);
   //desestructuramos los datos q nos mandan del front
   const { nombre, descrip, precio, categoria, img, ...resto } = req.body;
   resto.nombre = nombre;
